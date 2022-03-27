@@ -176,8 +176,8 @@ class MyWindow(QMainWindow):
             time.sleep(2)
 
     def order(self):
-        # 평단가가 현재가보다 낮으면 매수
-        if self.btc_avg_buy_price < self.btc_cur_price:
+        # buy bitcoin when current price is less than average buy price 
+        if self.btc_avg_buy_price == 0 or self.btc_cur_price < self.btc_avg_buy_price:
             upbit.buy_market_order("KRW-BTC", self.unit_seed)
             self.unit_num -= 1
 
