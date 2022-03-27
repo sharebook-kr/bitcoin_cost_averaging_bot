@@ -27,3 +27,9 @@ $ python main.py
 ```
 
 프로그램이 시작되면 무한매수 시작 버튼을 눌러 프로그램을 시작합니다. 
+
+## Version
+
+| version | description |
+| 0.1 | initial |
+| 0.2 | 데이터 베이스 기능 추가 |
