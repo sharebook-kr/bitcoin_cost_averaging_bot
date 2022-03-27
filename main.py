@@ -46,6 +46,7 @@ class MyWindow(QMainWindow):
         self.btc_cur_price = 0 
         self.krw_balance_data = None
         self.btc_balance_data = None
+        self.initialized = False
 
         self.unit_seed = 0
         self.unit_max = 200
@@ -139,7 +140,11 @@ class MyWindow(QMainWindow):
         self.btc_cur_price    = data[0]     
         self.krw_balance_data = data[1]     
         self.btc_balance_data = data[2]     
-        self.initialize_unit_seed()
+
+        # initialize the seed when program start
+        if self.initialized is False:
+            self.initialize_unit_seed()
+            self.initialized = True 
  
     def start(self):
         """무한매수 시작 버튼에 대한 slot
@@ -173,7 +178,7 @@ class MyWindow(QMainWindow):
     def order(self):
         # 평단가가 현재가보다 낮으면 매수
         if self.btc_avg_buy_price < self.btc_cur_price:
-            self.order_data = upbit.buy_market_order("KRW-BTC", self.unit_seed)
+            upbit.buy_market_order("KRW-BTC", self.unit_seed)
             self.unit_num -= 1
 
         # 매수 후 평단 재계산 
@@ -183,8 +188,10 @@ class MyWindow(QMainWindow):
         volume = balance_dict['balance']
 
         price = self.btc_avg_buy_price * (1 + self.profit_ratio * 0.01)
-        price = int(price)
-        upbit.sell_limit_order("KRW-BTC", price, volume)
+        # 호가 규칙 적용 
+        price = pyupbit.get_tick_size(price)
+        self.order_data = upbit.sell_limit_order("KRW-BTC", price, volume)
+        print(self.order_data)
 
     def cancel_order(self):
         try:
