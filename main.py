@@ -241,8 +241,15 @@ class MyWindow(QMainWindow):
 
         # 총보유자산 
         # 원화 및 BTC만 고려함. 
-        krw = float(self.krw_balance_data['balance']) + float(self.krw_balance_data['locked'])
-        btc = float(self.btc_balance_data['balance']) + float(self.btc_balance_data['locked'])
+        try:
+            krw = float(self.krw_balance_data['balance']) + float(self.krw_balance_data['locked'])
+        except:
+            krw = 0
+
+        try:
+            btc = float(self.btc_balance_data['balance']) + float(self.btc_balance_data['locked'])
+        except:
+            btc = 0
         total = krw + self.btc_cur_price * btc 
         total = int(total)
         self.lineedit_balance.setText(format(total, ","))
