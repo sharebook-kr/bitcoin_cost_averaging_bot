@@ -25,3 +25,5 @@ $ pip install -U pyupbit
 ```
 $ python main.py
 ```
+
+프로그램이 시작되면 무한매수 시작 버튼을 눌러 프로그램을 시작합니다. 
