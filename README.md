@@ -31,5 +31,6 @@ $ python main.py
 ## Version
 
 | version | description |
+|---------|-------------|
 | 0.1 | initial |
 | 0.2 | 데이터 베이스 기능 추가 |
